@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Update Room
+{% endblock page_title %}
+
+{% block content %}
+    <div>
+        {% include "mixins/room/room_form.html" with form=form cta="Update Room" %}
+
+        <div>
+            <a href="{% url 'rooms:photos' room.pk %}">Edit Photos</a>
+        </div>
+
+    </div>
+{% endblock content %}

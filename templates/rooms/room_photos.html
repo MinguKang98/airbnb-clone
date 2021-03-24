@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    {{room.name}} Photos
+{% endblock page_title %}
+
+{% block content %}
+    <div>
+        <div>
+            <a href="{% url 'rooms:add-photo' room.pk %}" class="btn-link">Upload Photo</a>
+        </div>
+        
+        {% for photo in room.photos.all %}
+            <div class="mb-5">
+                <div>
+                    <img src="{{photo.file.url}}">
+                    <span>{{photo.caption}}</span>
+                </div>
+                <div>
+                    <a href="{% url 'rooms:edit-photo' room.pk photo.pk %}">Edit</a>
+                    <a href="{% url 'rooms:delete-photo' room.pk photo.pk %}">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div>
+             <a href="{% url 'rooms:edit' room.pk %}">Back to room</a>           
+        </div>
+
+    </div>
+{% endblock content %}

@@ -8,6 +8,9 @@ django = "==2.2.5"
 black = "*"
 pillow = "*"
 django-countries = "*"
+django-seed = "*"
+django-dotenv = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"

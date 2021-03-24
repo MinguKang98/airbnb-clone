@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block page_name %}
+    Update Profile
+{% endblock page_name %}
+
+
+{% block content %}
+    <div>
+        {% include 'mixins/auth/auth_form.html' with form=form cta="Update Profile" %}
+        
+        {{object.login_method}}
+
+        {% if object.login_method == "password" %}
+            <div>
+                <a href="{% url 'users:password' %}">Change Password</a>
+            </div>        
+        {% endif %}    
+
+    </div>
+{% endblock content %}
+    

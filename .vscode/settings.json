@@ -4,5 +4,16 @@
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
-    "python.linting.flake8Args": ["--max-line-length=88"]
+    "python.linting.flake8Args": ["--max-line-length=88"],
+    
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "html",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+      },
+      "unibeautify.enabled": true,
+      "[html]": {
+        "editor.formatOnSave": true,
+        //"editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+      },
 }

@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from users import mixins as user_mixins
 from . import models, forms
 
 
@@ -14,7 +15,7 @@ class HomeView(ListView):
     """ HomeView Defnition """
 
     model = models.Room
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 5
     ordering = "created"
     context_object_name = "rooms"
@@ -102,7 +103,7 @@ class SearchView(View):
         return render(request, "rooms/search.html", {"form": form})
 
 
-class EditRoomView(UpdateView):
+class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
 
     """ EditRoomView Definition """
 
@@ -135,7 +136,7 @@ class EditRoomView(UpdateView):
         return room
 
 
-class RoomPhotosView(DetailView):
+class RoomPhotosView(user_mixins.LoggedInOnlyView, DetailView):
 
     model = models.Room
     template_name = "rooms/room_photos.html"
@@ -157,17 +158,17 @@ def delete_photos(request, room_pk, photo_pk):
         else:
             models.Photo.objects.filter(pk=photo_pk).delete()
             messages.success(request, "Photo Deleted")
-        return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
+            return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
     except models.Room.DoesNotExist:
-        return redirect(reverse("core:home"))
+       return redirect(reverse("core:home"))
 
 
-class EditPhotoView(SuccessMessageMixin, UpdateView):
+class EditPhotoView(SuccessMessageMixin, user_mixins.LoggedInOnlyView ,UpdateView):
 
     model = models.Photo
     template_name = "rooms/photo_edit.html"
     pk_url_kwarg = "photo_pk"
-    success_message = "Photo Update"
+    success_message = "Photo Updated"
     fields = ("caption",)
 
     def get_success_url(self):
@@ -175,7 +176,7 @@ class EditPhotoView(SuccessMessageMixin, UpdateView):
         return reverse("rooms:photos", kwargs={"pk": room_pk})
 
 
-class AddPhotoView(FormView):
+class AddPhotoView(user_mixins.LoggedInOnlyView ,FormView):
 
     model = models.Photo
     template_name = "rooms/photo_create.html"

@@ -160,10 +160,10 @@ def delete_photos(request, room_pk, photo_pk):
             messages.success(request, "Photo Deleted")
             return redirect(reverse("rooms:photos", kwargs={"pk": room_pk}))
     except models.Room.DoesNotExist:
-       return redirect(reverse("core:home"))
+        return redirect(reverse("core:home"))
 
 
-class EditPhotoView(SuccessMessageMixin, user_mixins.LoggedInOnlyView ,UpdateView):
+class EditPhotoView(SuccessMessageMixin, user_mixins.LoggedInOnlyView, UpdateView):
 
     model = models.Photo
     template_name = "rooms/photo_edit.html"
@@ -176,7 +176,7 @@ class EditPhotoView(SuccessMessageMixin, user_mixins.LoggedInOnlyView ,UpdateVie
         return reverse("rooms:photos", kwargs={"pk": room_pk})
 
 
-class AddPhotoView(user_mixins.LoggedInOnlyView ,FormView):
+class AddPhotoView(user_mixins.LoggedInOnlyView, FormView):
 
     model = models.Photo
     template_name = "rooms/photo_create.html"
@@ -190,7 +190,7 @@ class AddPhotoView(user_mixins.LoggedInOnlyView ,FormView):
         return redirect(reverse("rooms:photos", kwargs={"pk": pk}))
 
 
-class CreateRoomView(FormView):
+class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
 
     form_class = forms.CreateRoomForm
     template_name = "rooms/room_create.html"

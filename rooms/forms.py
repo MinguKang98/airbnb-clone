@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import widgets
 from django_countries.fields import CountryField
 from . import models
 
@@ -64,6 +63,6 @@ class CreateRoomForm(forms.ModelForm):
             "house_rules",
         )
 
-        def save(self, *args, **kwargs):
-            room = super().save(commit=False)
-            return room
+    def save(self, *args, **kwargs):
+        room = super().save(commit=False)
+        return room

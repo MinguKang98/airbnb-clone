@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    {{user.first_name}}'s Reservations
+{% endblock page_title %}
+
+
+{% block content %}
+    <div class="min-h-75vh">
+        <div class="container mx-auto pb-10 flex flex-col items-center">
+            <h3 class="mb-12 text-2xl">
+                {% if request.session.is_hosting %}
+                Reserved Rooms
+                {% else %}
+                Your Reservations
+                {% endif %}
+            </h3>
+            <div class="flex flex-wrap -mx-40 mb-10 w-full">
+                {% if request.session.is_hosting %}        
+                    {% for room in user.rooms.all %}
+                        {% for reservation in room.reservations.all %}
+                            {% include 'mixins/reservation_card.html' with reservation=reservation %}
+                        {% endfor %}
+                    {% endfor %} 
+                {% else %}
+                    {% for reservation in user.reservations.all %}
+                            {% include 'mixins/reservation_card.html' with reservation=reservation %}
+                        {% endfor %} 
+                {% endif %}
+                           
+            </div>
+        </div>        
+    </div>
+
+{% endblock content %}
+    

@@ -1,0 +1,23 @@
+<div class="w-1/4 mb-10 px-2 overflow-hidden">
+    <a href="{% url 'reservations:detail' reservation.pk %}">
+      <div class="w-full h-64 bg-cover bg-center rounded-lg mb-2" style="background-image: url({{reservation.room.first_photo}});"></div>
+      <div class="flex justify-between mb-2 truncate">
+          <div class="w-4/5 overflow-hidden flex">
+              {% if reservation.room.host %}
+                <span class="mr-2 uppercase font-medium text-xs border border-black text-black rounded py-px px-1">superhost</span>  
+              {% endif %}
+            <span class="text-sm text-gray-600 block truncate">{{reservation.room.city}}, {{reservation.room.country}}</span>
+          </div>
+          <span class="text-sm flex items-center">
+            <i class="fas fa-star text-red-500 text-xs mr-1"></i>
+              {{reservation.room.total_rating}}
+          </span>
+      </div>
+      <span class="text-black w-11/12 block truncate mb-1">{{reservation.room.name}}</span>
+      <div class="flex justify-between items-center truncate">
+        <span class="text-sm text-gray-600 truncate">{{reservation.check_in}} - {{reservation.check_out}}</span>
+        <span class="ml-5 {% if reservation.status == 'pending' %} text-yellow-500 {% elif reservation.status == 'canceled' %} text-red-600 {% else %} text-green-600 {% endif %}">{{reservation.get_status_display}}</span>
+      </div>
+    </a>
+  </div>
+  

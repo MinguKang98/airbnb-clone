@@ -1,7 +1,7 @@
 from django.db.models import Q
-from django.http import Http404, request
+from django.http import Http404
 from django.shortcuts import redirect, reverse, render
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from users import models as user_models
 from . import models
 
@@ -41,3 +41,8 @@ class ConversationDetailView(View):
                 message=message, user=self.request.user, conversation=conversation
             )
         return redirect(reverse("conversations:detail", kwargs={"pk": pk}))
+
+
+class ConversationListView(TemplateView):
+
+    template_name = "conversations/my_conversation.html"

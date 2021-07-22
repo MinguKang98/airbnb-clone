@@ -1,0 +1,17 @@
+<div class="w-1/2 mb-10 px-2 overflow-hidden border p-5">
+    <a href="{% url 'conversations:detail' conversation.pk %}" class="flex items-center justify-between">
+        {% for user in conversation.participants.all %}
+            {% if user != request.user %}
+                <div class="flex flex-col items-center">
+                    {% include 'mixins/user_avatar.html' with user=user %}
+                    <span class="mt-2 text-gray-500">{{user.first_name}}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="mx-10 text-gray-400 text-3xl">
+          {{conversation.messages.all.last.message}}
+        </div>
+        <span class="text-gray-400 text-sm mt-14">{{conversation.messages.all.last.created}}</span>
+    </a>
+  </div>
+  

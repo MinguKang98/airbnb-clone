@@ -22,6 +22,16 @@
     
             {% if user == user_obj %}
             <a href="{% url 'users:update' %}" class="btn-link">Edit Profile</a>
+            <div class="flex justify-between w-40 mt-5">
+                <a href="{% url 'lists:see-favs' %}" class="flex flex-col items-center">
+                    <i class="fas fa-heart text-pink-500">({{user.list.rooms.count}})</i>
+                    <span>Favs</span>
+                </a>
+                <a href="{% url 'conversations:see-mine' %}" class="flex flex-col items-center">
+                    <i class="far fa-comment-dots">({{user.conversations.count}})</i>
+                    <span>Messages</span>
+                </a>
+            </div>
             {% endif %}
         </div>
                 
